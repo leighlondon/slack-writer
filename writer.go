@@ -4,6 +4,7 @@
 package slack
 
 import (
+	"errors"
 	"net/http"
 	"net/url"
 )
@@ -19,13 +20,18 @@ type Writer struct {
 }
 
 // NewWriter returns a new writer configured for use with the Slack API.
-func NewWriter(channel, user, token string) *Writer {
+func NewWriter(channel, user, token string) (*Writer, error) {
+	// Basic validation.
+	if channel == "" || user == "" || token == "" {
+		return &Writer{}, errors.New("invalid configuration")
+	}
+	// Configure the writer with the details.
 	w := Writer{
 		Channel: channel,
 		User:    user,
 		Token:   token,
 	}
-	return &w
+	return &w, nil
 }
 
 // Write writes the input byte data to the nominated channel as a string.
