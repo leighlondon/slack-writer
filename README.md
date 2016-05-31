@@ -1,3 +1,22 @@
 # slack-writer
 
-A Go `io.Writer` to send messages to a Slack channel.
+An `io.Writer` to send messages to a Slack channel.
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/leighlondon/slack-writer"
+)
+
+func main() {
+	writer, err := slack.NewWriter("#channel-name", "go-program!", "your-token-here")
+	if err != nil {
+		fmt.Println("an invalid configuration with the writer")
+		return
+	}
+	fmt.Fprintf(writer, "Hello world!")
+}
+```
