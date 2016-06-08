@@ -41,8 +41,8 @@ func (w *Writer) Write(p []byte) (int, error) {
 	d.Add("username", w.User)
 	d.Add("token", w.Token)
 	d.Add("text", string(p))
-	_, _ = http.PostForm(api, d)
+	_, err := http.PostForm(api, d)
 	// The errors and return code don't line up but are just
 	// so that this can be called as a Writer.
-	return 0, nil
+	return len(p), err
 }
