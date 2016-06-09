@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	writer, err := slack.NewWriter("#channel-name", "go-program!", "your-token-here")
+	writer, err := slack.NewWriter("#channel-name", "the-bot-username", "your-token-here")
 	if err != nil {
 		fmt.Println("an invalid configuration with the writer")
 		return
