@@ -17,6 +17,7 @@ type Writer struct {
 	Channel string
 	User    string
 	Token   string
+	data    url.Values
 }
 
 // NewWriter returns a new writer configured for use with the Slack API.
@@ -25,23 +26,24 @@ func NewWriter(channel, user, token string) (*Writer, error) {
 	if channel == "" || user == "" || token == "" {
 		return &Writer{}, errors.New("invalid configuration")
 	}
+	d := url.Values{}
+	d.Add("channel", channel)
+	d.Add("username", user)
+	d.Add("token", token)
 	// Configure the writer with the details.
 	w := Writer{
 		Channel: channel,
 		User:    user,
 		Token:   token,
+		data:    d,
 	}
 	return &w, nil
 }
 
 // Write writes the input byte data to the nominated channel as a string.
 func (w *Writer) Write(p []byte) (int, error) {
-	d := url.Values{}
-	d.Add("channel", w.Channel)
-	d.Add("username", w.User)
-	d.Add("token", w.Token)
-	d.Add("text", string(p))
-	_, err := http.PostForm(api, d)
+	w.data.Add("text", string(p))
+	_, err := http.PostForm(api, w.data)
 	// The errors and return code don't line up but are just
 	// so that this can be called as a Writer.
 	return len(p), err
