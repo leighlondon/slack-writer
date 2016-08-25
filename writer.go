@@ -26,6 +26,7 @@ func NewWriter(channel, user, token string) (*Writer, error) {
 	if channel == "" || user == "" || token == "" {
 		return &Writer{}, errors.New("invalid configuration")
 	}
+	// Pre-populate the static values for the data.
 	d := url.Values{}
 	d.Add("channel", channel)
 	d.Add("username", user)
