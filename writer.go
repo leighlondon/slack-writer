@@ -44,14 +44,17 @@ func (w *Writer) Write(p []byte) (int, error) {
 	return len(p), err
 }
 
+// Channel is the name of the channel the writer will post to.
 func (w *Writer) Channel() string {
 	return w.data.Get("channel")
 }
 
+// Username is the name that the writer will appear as in the channel.
 func (w *Writer) Username() string {
 	return w.data.Get("username")
 }
 
+// Token is the access token that will be used for the Slack API.
 func (w *Writer) Token() string {
 	return w.data.Get("token")
 }
