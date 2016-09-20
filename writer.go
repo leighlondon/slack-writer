@@ -14,10 +14,7 @@ const api = "https://slack.com/api/chat.postMessage"
 
 // Writer implements the io.Writer interface and stores basic state.
 type Writer struct {
-	Channel string
-	User    string
-	Token   string
-	data    url.Values
+	data url.Values
 }
 
 // NewWriter returns a new writer configured for use with the Slack API.
@@ -33,10 +30,7 @@ func NewWriter(channel, user, token string) (*Writer, error) {
 	d.Add("token", token)
 	// Configure the writer with the details.
 	w := Writer{
-		Channel: channel,
-		User:    user,
-		Token:   token,
-		data:    d,
+		data: d,
 	}
 	return &w, nil
 }
