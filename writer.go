@@ -28,11 +28,8 @@ func NewWriter(channel, user, token string) (*Writer, error) {
 	d.Add("channel", channel)
 	d.Add("username", user)
 	d.Add("token", token)
-	// Configure the writer with the details.
-	w := Writer{
-		data: d,
-	}
-	return &w, nil
+	// Configure the writer with the details, and return.
+	return &Writer{data: d}, nil
 }
 
 // Write writes the input byte data to the nominated channel as a string.
