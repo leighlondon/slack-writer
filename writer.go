@@ -43,3 +43,15 @@ func (w *Writer) Write(p []byte) (int, error) {
 	// so that this can be called as a Writer.
 	return len(p), err
 }
+
+func (w *Writer) Channel() string {
+	return w.data.Get("channel")
+}
+
+func (w *Writer) Username() string {
+	return w.data.Get("username")
+}
+
+func (w *Writer) Token() string {
+	return w.data.Get("token")
+}
